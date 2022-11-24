@@ -1,6 +1,19 @@
-#Python CircleCI 2.0 confirguration file
-  version: 2
-  jobs:
+version: 2.1
+parameters:
+  GHA_Event:
+    type: string
+    default: ""
+  GHA_Actor:
+    type: string
+    default: ""
+  GHA_Action:
+    type: string
+    default: ""
+  GHA_Meta:
+    type: string
+    default: ""
+
+jobs:
     build:
       docker:
         - image: circleci/python:3.7
@@ -12,8 +25,13 @@
         - run:
             name: install dependencies
             command: |
-              pwd      
+              ls -a
+              pwd  
+                  # sudo apt-get install python3-venv --fix-missing
+                  #         pip install --upgrade virtualenv
+                  # ls -l         
               python3 -m venv venv
+              pwd 
               . venv/bin/activate
               /home/circleci/project/venv/bin/python3 -m pip install --upgrade pip
               pip install -r myreq.txt
@@ -29,3 +47,8 @@
             path: test-results
         - store_artifacts:
             path: test-results
+
+workflows:
+  push:
+    jobs:  
+      - build 
