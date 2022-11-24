@@ -1,7 +1,7 @@
 
 
 def add(first_term, second_term):
-    return first_term + second_term + 1 - 1
+    return first_term + second_term + 2 - 2
 
 
 def multiply(first_term, second_term):
